@@ -1,0 +1,35 @@
+{
+  "code": "bookkeeperlectern",
+  "class": "BlockBookkeeperLectern",
+  "blockmaterial": "Wood",
+  "variantgroups": [
+    { "code": "side", "loadFromProperties": "game:abstract/horizontalorientation" }
+  ],
+  "behaviors": [
+    { "name": "HorizontalOrientable", "properties": { "dropBlockFace": "north" } }
+  ],
+  "shapeByType": {
+    "*-north": { "base": "game:block/clutter/bookshelves/lecturn-aged-book-open-tall", "rotateY": 0 },
+    "*-east":  { "base": "game:block/clutter/bookshelves/lecturn-aged-book-open-tall", "rotateY": 270 },
+    "*-south": { "base": "game:block/clutter/bookshelves/lecturn-aged-book-open-tall", "rotateY": 180 },
+    "*-west":  { "base": "game:block/clutter/bookshelves/lecturn-aged-book-open-tall", "rotateY": 90 }
+  },
+  "creativeinventory": { "general": ["*-north"] },
+  "maxstacksize": 1,
+  "lightAbsorption": 0,
+  "sidesolid": { "all": false },
+  "sideopaque": { "all": false },
+  "collisionbox": {
+    "x1": 0.188, "y1": 0.0, "z1": 0.188,
+    "x2": 0.8561, "y2": 1.2248, "z2": 0.8561
+  },
+  "selectionbox": {
+    "x1": 0.188, "y1": 0.0, "z1": 0.188,
+    "x2": 0.8561, "y2": 1.2248, "z2": 0.8561
+  },
+  "materialDensity": 600,
+  "sounds": {
+    "place": "game:block/planks",
+    "break": "game:block/planks"
+  }
+}

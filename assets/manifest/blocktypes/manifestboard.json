@@ -1,0 +1,42 @@
+{
+  "code": "manifestboard",
+  "class": "Block",
+  "behaviors": [
+    { "name": "HorizontalAttachable" } 
+  ],
+  "variantgroups": [
+    { "code": "side", "states": ["north", "east", "south", "west"] }
+  ],
+  "shapebytype": {
+    "*-north": { "base": "manifest:block/manifestboard", "rotateY": 0 },
+    "*-east": { "base": "manifest:block/manifestboard", "rotateY": 270 },
+    "*-south": { "base": "manifest:block/manifestboard", "rotateY": 180 },
+    "*-west": { "base": "manifest:block/manifestboard", "rotateY": 90 }
+  },
+  "textures": {
+    "all": { "base": "game:block/wood/debarked/birch" }
+  },
+  "creativeinventory": { "general": ["*-north"] },
+  "maxstacksize": 1,
+  "lightAbsorption": 0,
+  "sidesolid": { "all": false },
+  "sideopaque": { "all": false },
+  "collisionbox": {
+    "x1": 0.0625, "y1": 0.125, "z1": 0.0, "x2": 0.9375, "y2": 0.875, "z2": 0.0625,
+    "rotateYbytype": {
+      "*-north": 0,
+      "*-east": 270,
+      "*-south": 180,
+      "*-west": 90
+    }
+  },
+  "selectionbox": {
+    "x1": 0.0625, "y1": 0.125, "z1": 0.0, "x2": 0.9375, "y2": 0.875, "z2": 0.0625,
+    "rotateYbytype": {
+      "*-north": 0,
+      "*-east": 270,
+      "*-south": 180,
+      "*-west": 90
+    }
+  }
+}

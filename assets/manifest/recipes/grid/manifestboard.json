@@ -1,0 +1,13 @@
+[
+  {
+    "ingredientPattern": "C,P,W",
+    "ingredients": {
+      "C": { "type": "item", "code": "game:charcoal" },
+      "P": { "type": "item", "code": "game:paper-parchment" },
+      "W": { "type": "block", "code": "game:planks-*" }
+    },
+    "width": 1,
+    "height": 3,
+    "output": { "type": "block", "code": "manifest:manifestboard-north" }
+  }
+]
