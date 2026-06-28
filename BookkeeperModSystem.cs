@@ -213,6 +213,9 @@ namespace Bookkeeper
                         IWorldChunk chunk = player.Entity.World.BlockAccessor.GetChunk(chunkX, y, chunkZ);
                         if (chunk == null) continue;
                         foreach (var entry in chunk.BlockEntities) {
+                            // Never index work-station/processing inventories (firepit, quern,
+                            // anvil, etc.) — they hold items mid-process, not in storage.
+                            if (entry.Value == null || IsProcessingDevice(entry.Value)) continue;
                             // Standard containers (chests, vessels, crates, barrels, etc.)
                             if (entry.Value is IBlockEntityContainer container && container.Inventory != null)
                             {
@@ -251,6 +254,21 @@ namespace Bookkeeper
                 }
             }
             serverChannel.SendPacket(new PacketBookkeeperResponse { Items = consolidated.Values.ToList() }, player);
+        }
+
+        // Work-station / processing block entities hold items mid-process, not in storage
+        // (cooking pot on a firepit, ore in a bloomery, workitem on an anvil, grain in a quern).
+        // Excluded so the ledger reflects real storage only; matches Quartermaster's behavior.
+        private static bool IsProcessingDevice(BlockEntity be)
+        {
+            return be is BlockEntityFirepit
+                || be is BlockEntityOven
+                || be is BlockEntityBloomery
+                || be is BlockEntityForge
+                || be is BlockEntityQuern
+                || be is BlockEntityStove
+                || be is BlockEntityBoiler
+                || be is BlockEntityAnvil;
         }
 
         private void ScanInventory(IInventory inventory, Dictionary<string, BookkeeperItemDTO> list, BlockPos pos)

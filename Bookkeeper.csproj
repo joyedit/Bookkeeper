@@ -25,6 +25,10 @@
       <HintPath>$(VINTAGE_STORY_PATH)/Mods/VSEssentials.dll</HintPath>
       <Private>false</Private>
     </Reference>
+    <Reference Include="VSSurvivalMod">
+      <HintPath>$(VINTAGE_STORY_PATH)/Mods/VSSurvivalMod.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

@@ -2,7 +2,7 @@
   "type": "code",
   "modid": "manifest",
   "name": "Bookkeeper",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "authors": ["Feyd"],
   "description": "A read-only storage cataloging system for tracking items across nearby containers, tool racks, display cases, and shelves. Place a Bookkeeper's Lectern anywhere, then interact to browse everything stored within range. Click any item to highlight its container locations with blue markers and floating text labels visible through walls.",
   "iconPath": "modicon.png",
