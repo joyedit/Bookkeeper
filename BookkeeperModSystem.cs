@@ -258,12 +258,18 @@ namespace Bookkeeper
             foreach (var slot in inventory) {
                 if (slot?.Itemstack == null) continue;
                 string code = slot.Itemstack.Collectible.Code.ToString();
-                if (!list.ContainsKey(code))
-                    list[code] = new BookkeeperItemDTO { Code = code, Count = 0, Type = slot.Itemstack.Class.ToString() };
+                // Decorative chests, clutter, and other attribute-variant blocks share one block
+                // code; the specific kind lives in the "type"/"material" attributes. Key on all
+                // three so variants don't collapse into a single generic entry.
+                string variantType = slot.Itemstack.Attributes?.GetString("type") ?? "";
+                string material = slot.Itemstack.Attributes?.GetString("material") ?? "";
+                string key = code + "|" + variantType + "|" + material;
+                if (!list.ContainsKey(key))
+                    list[key] = new BookkeeperItemDTO { Code = code, Count = 0, Type = slot.Itemstack.Class.ToString(), VariantType = variantType, Material = material };
 
-                list[code].Count += slot.Itemstack.StackSize;
-                if (list[code].Locations.Count < 20 && !list[code].Locations.Any(l => l.X == pos.X && l.Y == pos.Y && l.Z == pos.Z))
-                    list[code].Locations.Add(new SimplePos { X = pos.X, Y = pos.Y, Z = pos.Z });
+                list[key].Count += slot.Itemstack.StackSize;
+                if (list[key].Locations.Count < 20 && !list[key].Locations.Any(l => l.X == pos.X && l.Y == pos.Y && l.Z == pos.Z))
+                    list[key].Locations.Add(new SimplePos { X = pos.X, Y = pos.Y, Z = pos.Z });
             }
         }
 

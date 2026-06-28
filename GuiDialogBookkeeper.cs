@@ -24,6 +24,8 @@ namespace Bookkeeper
         public string Code;
         public int Count;
         public string Type;
+        public string VariantType;
+        public string Material;
         public List<SimplePos> Locations = new List<SimplePos>();
     }
 
@@ -74,6 +76,10 @@ namespace Bookkeeper
                     if (collectible != null)
                     {
                         ItemStack stack = new ItemStack(collectible, dto.Count);
+                        // Attribute-variant blocks (decorative chests, clutter) share one code;
+                        // reapply type/material so the correct name + icon show.
+                        if (!string.IsNullOrEmpty(dto.VariantType)) stack.Attributes.SetString("type", dto.VariantType);
+                        if (!string.IsNullOrEmpty(dto.Material)) stack.Attributes.SetString("material", dto.Material);
                         List<BlockPos> locs = dto.Locations.Select(p => new BlockPos(p.X, p.Y, p.Z)).ToList();
                         allEntries.Add(new BookkeeperEntry() { Stack = stack, Locations = locs });
                     }
