@@ -216,6 +216,8 @@ namespace Bookkeeper
                             // Never index work-station/processing inventories (firepit, quern,
                             // anvil, etc.) — they hold items mid-process, not in storage.
                             if (entry.Value == null || IsProcessingDevice(entry.Value)) continue;
+                            // Honor land claims: skip containers the player isn't allowed to use.
+                            if (config.HonorClaims && !HasClaimAccess(player, entry.Key)) continue;
                             // Standard containers (chests, vessels, crates, barrels, etc.)
                             if (entry.Value is IBlockEntityContainer container && container.Inventory != null)
                             {
@@ -259,6 +261,16 @@ namespace Bookkeeper
         // Work-station / processing block entities hold items mid-process, not in storage
         // (cooking pot on a firepit, ore in a bloomery, workitem on an anvil, grain in a quern).
         // Excluded so the ledger reflects real storage only; matches Quartermaster's behavior.
+        // Land-claim check: true if the player may USE (open) a block at pos — owners and
+        // granted players/groups pass, everyone else is denied. Lets the ledger honor claims by
+        // skipping containers the player couldn't access by hand. Unclaimed land and single-
+        // player return Granted, so there's no behavior change where claims aren't used.
+        private static bool HasClaimAccess(IServerPlayer player, BlockPos pos)
+        {
+            return player.Entity.World.Claims.TestAccess(player, pos, EnumBlockAccessFlags.Use)
+                == EnumWorldAccessResponse.Granted;
+        }
+
         private static bool IsProcessingDevice(BlockEntity be)
         {
             return be is BlockEntityFirepit

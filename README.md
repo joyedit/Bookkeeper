@@ -49,6 +49,7 @@ Server config at `ModConfig/BookkeeperConfig.json`:
 |---|---|---|
 | `ChunkRadius` | `2` | Horizontal scan radius in **chunks** (1 chunk = 32 blocks). |
 | `VerticalRange` | `5` | Vertical range in blocks above/below the player. |
+| `HonorClaims` | `true` | When `true`, containers inside a land claim you don't have permission to use are hidden from the ledger. Owners/granted players and unclaimed land are unaffected. |
 
 The scan is centered on the player and is chunk-granular; containers in chunks that
 aren't currently loaded are not included.
